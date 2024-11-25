@@ -1,0 +1,8 @@
+{
+"course_id" : "C001",
+"course_name" : "Course 1",
+ "section_alias" : "Chapter",
+"subsection_alias" : "Section",
+ "sub_subsection_alias" : "Subsection"
+}
+
