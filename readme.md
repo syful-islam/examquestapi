@@ -1,6 +1,6 @@
 -----Batch Command to update (development, stage and production) in github -----------
 git add .
-git commit -m "Sales invoice payment schedule solved"
+git commit -m "Swagger added"
 git push origin main
 
 
