@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from api.models import User, Course, CourseSection, CourseBatch, Question, QuestionOption, AnswerOption, Exam, ExamQuestion, Student, StudentCourse, StudentExam, StudentExamAnswer
+from api.models import (User, Course, CourseSection, CourseBatch, Question, QuestionOption, AnswerOption, Exam, ExamQuestion, 
+                        Student, StudentCourse, StudentExam, StudentExamQuestion, StudentExamAnswer)
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -59,6 +60,11 @@ class StudentCourseSerializer(serializers.ModelSerializer):
 class StudentExamSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentExam
+        fields = '__all__'
+
+class StudentExamQuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentExamQuestion
         fields = '__all__'
 
 class StudentExamAnswerSerializer(serializers.ModelSerializer):

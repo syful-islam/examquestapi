@@ -10,4 +10,5 @@ from .exam_question import ExamQuestion
 from .student import Student
 from .student_course import StudentCourse
 from .student_exam import StudentExam
+from .student_exam_question import StudentExamQuestion
 from .student_exam_answer import StudentExamAnswer

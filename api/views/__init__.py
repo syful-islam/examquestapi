@@ -10,4 +10,5 @@ from .exam_question import get_exam_questions, create_exam_question, exam_questi
 from .student import get_students, create_student, student_detail
 from .student_course import get_student_courses, create_student_course, student_course_detail
 from .student_exam import get_student_exams, create_student_exam, student_exam_detail
+from .student_exam_question import get_student_exam_questions
 from .student_exam_answer import get_student_exam_answers, create_student_exam_answer, student_exam_answer_detail

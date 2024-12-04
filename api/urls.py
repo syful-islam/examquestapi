@@ -1,5 +1,11 @@
 from django.urls import path
-from .views import get_users, create_user, user_detail, get_courses, create_course, course_detail, get_course_sections, create_course_section, course_section_detail, get_course_batches, create_course_batch, course_batch_detail, get_questions, create_question, question_detail, get_question_options, create_question_option, question_option_detail, get_answer_options, create_answer_option, answer_option_detail, get_exams, create_exam, exam_detail, get_exam_questions, create_exam_question, exam_question_detail, get_students, create_student, student_detail, get_student_courses, create_student_course, student_course_detail, get_student_exams, create_student_exam, student_exam_detail, get_student_exam_answers, create_student_exam_answer, student_exam_answer_detail
+from .views import (get_users, create_user, user_detail, get_courses, create_course, course_detail, get_course_sections, 
+                    create_course_section, course_section_detail, get_course_batches, create_course_batch, course_batch_detail, 
+                    get_questions, create_question, question_detail, get_question_options, create_question_option, question_option_detail, 
+                    get_answer_options, create_answer_option, answer_option_detail, get_exams, create_exam, exam_detail, get_exam_questions, 
+                    create_exam_question, exam_question_detail, get_students, create_student, student_detail, get_student_courses, 
+                    create_student_course, student_course_detail, get_student_exams, create_student_exam, student_exam_detail, 
+                    get_student_exam_questions,get_student_exam_answers, create_student_exam_answer, student_exam_answer_detail)
 
 urlpatterns = [
     path('users/', get_users, name='get_users'),
@@ -38,6 +44,7 @@ urlpatterns = [
     path('student_exams/', get_student_exams, name='get_student_exams'),
     path('student_exams/create/', create_student_exam, name='create_student_exam'),
     path('student_exams/<int:pk>/', student_exam_detail, name='student_exam_detail'),
+    path('student_exam_questions/<int:exam_id>/', get_student_exam_questions, name='get_student_exam_questions'),
     path('student_exam_answers/', get_student_exam_answers, name='get_student_exam_answers'),
     path('student_exam_answers/create/', create_student_exam_answer, name='create_student_exam_answer'),
     path('student_exam_answers/<int:pk>/', student_exam_answer_detail, name='student_exam_answer_detail'),

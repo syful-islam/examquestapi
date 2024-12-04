@@ -32,7 +32,7 @@ class Question(models.Model):
     media_url = models.URLField(blank=True, null=True)
     media_type = models.CharField(max_length=5, choices=MEDIA_TYPE_CHOICES, blank=True, null=True)
     question_type = models.CharField(max_length=5, choices=QUESTION_TYPE_CHOICES)
-    question_answer = models.JSONField()
+    question_answer = models.TextField(blank=True, null=True)
     difficulty_level = models.IntegerField(choices=DIFFICULTY_LEVEL_CHOICES)
     note = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=8, choices=STATUS_CHOICES)
