@@ -11,14 +11,17 @@ python3 manage.py makemigrations
 python3 manage.py migrate
 
 ## in production  for swagger  ##
-python manage.py collectstatic
+python3 manage.py collectstatic
 
 ## Batch Command to update in github ##
 git add .
-git commit -m "Student Exam Question Working"
+git commit -m "Student Exam Create Updated"
 git push origin main
 
 ## Command to pull to production from github ##
 git pull origin main
+
+sudo systemctl restart nginx
+sudo supervisorctl restart all
 
 erpnext user pass: qazwsx!@#

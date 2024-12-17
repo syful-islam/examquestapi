@@ -1,3 +1,4 @@
+Course:
 {
 "course_id" : "C001",
 "course_name" : "Course 1",
@@ -6,3 +7,18 @@
  "sub_subsection_alias" : "Subsection"
 }
 
+Exam Answer:
+
+{
+  "student_id": 1,
+  "exam_id": 1,
+  "no_of_questions": 1,
+  "no_of_correct_answers": 1,
+  "qanswers": [
+      "question_id": "1",
+      "answer": {
+        "option_id":1
+        "answer_id":1
+      }
+    ]
+}

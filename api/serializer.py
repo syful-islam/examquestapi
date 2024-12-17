@@ -57,17 +57,47 @@ class StudentCourseSerializer(serializers.ModelSerializer):
         model = StudentCourse
         fields = '__all__'
 
-class StudentExamSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = StudentExam
-        fields = '__all__'
-
 class StudentExamQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentExamQuestion
         fields = '__all__'
 
 class StudentExamAnswerSerializer(serializers.ModelSerializer):
+    # class Meta:
+    #     model = StudentExamAnswer
+    #     fields = '__all__'
     class Meta:
         model = StudentExamAnswer
-        fields = '__all__'
+        fields = ['id', 'student_answer', 'is_correct', 'question_id']
+        extra_kwargs = {
+            'id': {'read_only': True}  # Make `id` field read-only
+        }
+
+class StudentExamSerializer(serializers.ModelSerializer):
+    # class Meta:
+    #     model = StudentExam
+    #     fields = '__all__'
+    qanswers = StudentExamAnswerSerializer(many=True, write_only=True)
+    
+    class Meta:
+        model = StudentExam
+        fields = [
+            'id', 'exam_start_date_time', 'exam_end_date_time', 'result',
+            'no_of_questions', 'no_of_correct_answers', 'exam_id',
+            'student_id', 'qanswers'
+        ]
+    
+    def create(self, validated_data):
+        qanswers_data = validated_data.pop('qanswers')
+        student_exam = StudentExam.objects.create(**validated_data)
+
+        # Create answers and link to the current StudentExam
+        for answer_data in qanswers_data:
+            StudentExamAnswer.objects.create(
+                student_answer=answer_data['student_answer'],
+                is_correct=answer_data['is_correct'],
+                question_id=answer_data['question_id'],
+                exam_id=validated_data['exam_id'],  # Inherit exam_id
+                student_id=validated_data['student_id']  # Inherit student_id
+            )
+        return student_exam

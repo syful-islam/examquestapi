@@ -10,13 +10,21 @@ def get_student_exams(request):
     serializer = StudentExamSerializer(student_exams, many=True)
     return Response(serializer.data)
 
+# @api_view(['POST'])
+# def create_student_exam(request):
+#     serializer = StudentExamSerializer(data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 @api_view(['POST'])
 def create_student_exam(request):
-    serializer = StudentExamSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#def post(self, request, *args, **kwargs):
+        serializer = StudentExamSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def student_exam_detail(request, pk):

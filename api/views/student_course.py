@@ -5,8 +5,8 @@ from api.models import StudentCourse
 from api.serializer import StudentCourseSerializer
 
 @api_view(['GET'])
-def get_student_courses(request):
-    student_courses = StudentCourse.objects.all()
+def get_student_courses(request, studentId):
+    student_courses = StudentCourse.objects.get(studentId=studentId)
     serializer = StudentCourseSerializer(student_courses, many=True)
     return Response(serializer.data)
 
