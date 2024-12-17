@@ -12,9 +12,9 @@ class StudentExamAnswer(models.Model):
 
     # def __str__(self):
     #     return f"{self.student.student_name} - {self.exam.exam_name} - {self.question.question_text}"
-    exam_id = models.IntegerField()
-    student_id = models.IntegerField()
-    question_id = models.IntegerField()
+    exam_id = models.IntegerField(default=1)
+    student_id = models.IntegerField(default=1)
+    question_id = models.IntegerField(default=1)
     student_answer = models.JSONField()
     is_correct = models.BooleanField()    
     

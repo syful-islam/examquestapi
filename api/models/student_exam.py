@@ -13,8 +13,8 @@ class StudentExam(models.Model):
 
     # def __str__(self):
     #     return f"{self.student.student_name} - {self.exam.exam_name}"
-    exam_id = models.IntegerField()
-    student_id = models.IntegerField()
+    exam_id = models.IntegerField(default=1)
+    student_id = models.IntegerField(default=1)
     exam_start_date_time = models.DateTimeField()
     exam_end_date_time = models.DateTimeField()
     result = models.CharField(max_length=10)
