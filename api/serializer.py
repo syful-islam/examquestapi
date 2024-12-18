@@ -62,10 +62,19 @@ class StudentExamQuestionSerializer(serializers.ModelSerializer):
         model = StudentExamQuestion
         fields = '__all__'
 
+class StudentExamInitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentExam
+        fields = [
+            'id', 'exam_id', 'student_id','exam_start_date_time'
+        ]
+
+class StudentExamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentExam
+        fields = '__all__'
+
 class StudentExamAnswerSerializer(serializers.ModelSerializer):
-    # class Meta:
-    #     model = StudentExamAnswer
-    #     fields = '__all__'
     class Meta:
         model = StudentExamAnswer
         fields = ['id', 'student_answer', 'is_correct', 'question_id']
@@ -73,18 +82,14 @@ class StudentExamAnswerSerializer(serializers.ModelSerializer):
             'id': {'read_only': True}  # Make `id` field read-only
         }
 
-class StudentExamSerializer(serializers.ModelSerializer):
-    # class Meta:
-    #     model = StudentExam
-    #     fields = '__all__'
+class StudentExamSubmitSerializer(serializers.ModelSerializer):
     qanswers = StudentExamAnswerSerializer(many=True, write_only=True)
     
     class Meta:
         model = StudentExam
         fields = [
-            'id', 'exam_start_date_time', 'exam_end_date_time', 'result',
-            'no_of_questions', 'no_of_correct_answers', 'exam_id',
-            'student_id', 'qanswers'
+            'id', 'exam_end_date_time','result',
+            'no_of_questions', 'no_of_correct_answers', 'qanswers'
         ]
     
     def create(self, validated_data):

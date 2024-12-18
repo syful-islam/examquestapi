@@ -44,6 +44,7 @@ urlpatterns = [
     path('student_exams/', get_student_exams, name='get_student_exams'),
     path('student_exams/create/', create_student_exam, name='create_student_exam'),
     path('student_exams/<int:pk>/', student_exam_detail, name='student_exam_detail'),
+    path('student_exams/submit/', create_student_exam, name='submit_student_exam'),
     path('student_exam_questions/<int:exam_id>/', get_student_exam_questions, name='get_student_exam_questions'),
     path('student_exam_answers/', get_student_exam_answers, name='get_student_exam_answers'),
     path('student_exam_answers/create/', create_student_exam_answer, name='create_student_exam_answer'),

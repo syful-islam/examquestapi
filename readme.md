@@ -15,7 +15,7 @@ python3 manage.py collectstatic
 
 ## Batch Command to update in github ##
 git add .
-git commit -m "Student Exam Create Updated"
+git commit -m "Student Exam Create,sumit Updated"
 git push origin main
 
 ## Command to pull to production from github ##
