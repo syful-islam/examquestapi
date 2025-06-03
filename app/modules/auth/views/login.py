@@ -6,9 +6,9 @@ from django.contrib.auth import login, logout
 from django.core.mail import send_mail
 from rest_framework.exceptions import AuthenticationFailed
 from django.contrib.auth.hashers import check_password, make_password
-from app.modules.student_management.models import SAMUser
+from app.models import EQUser
 from ..serializers.login import LoginSerializer, ChangePasswordSerializer, ForgotPasswordSerializer, ResetPasswordSerializer
-from app.modules.access_control.serializers.sam_user import SAMUserSerializer, SAMUserNestedSerializer
+from app.modules.access_control.serializers.eq_user import EQUserSerializer, EQUserNestedSerializer
 from ..services.auth_service import AuthService
 from app.modules.utils.otp_utility import OTPService
 from app.modules.subscription.models.subscriber import Subscriber
@@ -40,12 +40,6 @@ class RegisterView(APIView):
             
             features = request.data.get('features', {})
             log.debug(f"features Data: {features}")         
-            # sam = features.get('sam')
-            # rfp = features.get('rfp')
-            # cm = features.get('cm')
-
-            # features_keys = ['sam', 'rfp', 'cm']
-            # features = {key: request.POST.get(f'features[{key}]') for key in features_keys}
 
             if not any(features.values()):
                 raise AuthenticationFailed("Features are required")
@@ -58,15 +52,15 @@ class RegisterView(APIView):
             if subscriber:
                 raise AuthenticationFailed("You are already registered. Please contact your administrator")
             
-            user = SAMUser.objects.get(email=email)
+            user = EQUser.objects.get(email=email)
             if user.email_verified_at:
                 raise AuthenticationFailed("You are already registered")
             else:
-                return Response(SAMUserNestedSerializer(user).data, status=status.HTTP_201_CREATED)
+                return Response(EQUserNestedSerializer(user).data, status=status.HTTP_201_CREATED)
         except Package().DoesNotExist:
                     raise AuthenticationFailed("Package is required")                
-        except SAMUser().DoesNotExist:            
-            serializer = SAMUserSerializer(data=data)
+        except EQUser().DoesNotExist:            
+            serializer = EQUserSerializer(data=data)
 
             if serializer.is_valid():
                 try:
@@ -102,7 +96,7 @@ class RegisterView(APIView):
                         subscriber.save()
                         print("subscriber update", subscriber.id)
                         # return Response(serializer.data, status=status.HTTP_201_CREATED)
-                        return Response(SAMUserNestedSerializer(user).data, status=status.HTTP_201_CREATED)
+                        return Response(EQUserNestedSerializer(user).data, status=status.HTTP_201_CREATED)
                 except Exception as e:
                     transaction.rollback()  # Explicitly rollback on failure
                     # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -122,12 +116,12 @@ class LoginView(APIView):
             raise AuthenticationFailed("email and password are required")
         
         try:
-            user = SAMUser.objects.get(email=email)
+            user = EQUser.objects.get(email=email)
 
             if user.email_verified_at is None:
                 raise AuthenticationFailed("Email not verified")
             
-        except SAMUser().DoesNotExist:
+        except EQUser().DoesNotExist:
             raise AuthenticationFailed("User not found")
 
         if not check_password(password, user.password):
@@ -135,7 +129,7 @@ class LoginView(APIView):
         
         access_token = AuthService.create_access_token(user, 'ProcureLogic')
 
-        response_data = SAMUserNestedSerializer(user).data
+        response_data = EQUserNestedSerializer(user).data
         response_data['access_token'] = access_token.token
         response_data['expires_in'] = access_token.expires
         return Response(response_data, status=status.HTTP_200_OK)
@@ -171,8 +165,8 @@ class ChangePasswordView(APIView):
         serializer = ChangePasswordSerializer(data=request.data)
         if serializer.is_valid():            
             try:
-                user = SAMUser.objects.get(email=email)
-            except SAMUser().DoesNotExist:
+                user = EQUser.objects.get(email=email)
+            except EQUser().DoesNotExist:
                 raise AuthenticationFailed("User not found")
             
             if not check_password(serializer.validated_data["old_password"], user.password):           
@@ -191,7 +185,7 @@ class ForgotPasswordView(APIView):
         serializer = ForgotPasswordSerializer(data=request.data)
         if serializer.is_valid():
             email = serializer.validated_data["email"]
-            user = SAMUser.objects.filter(email=email).first()
+            user = EQUser.objects.filter(email=email).first()
             if user:
                 # Simulating email sending (replace with actual logic)
                 send_mail("Password Reset Request", "Reset your password here.", "admin@example.com", [email])
@@ -208,8 +202,8 @@ class ResetPasswordView(APIView):
         serializer = ResetPasswordSerializer(data=request.data)
         if serializer.is_valid():            
             try:
-                user = SAMUser.objects.get(email=email)
-            except SAMUser().DoesNotExist:
+                user = EQUser.objects.get(email=email)
+            except EQUser().DoesNotExist:
                 raise AuthenticationFailed("User not found")
 
             otp_service = OTPService()

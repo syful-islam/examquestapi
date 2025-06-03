@@ -1,10 +1,10 @@
 from django.db import models
 from app.modules.general_module.models.base_model import BaseModel
-from app.modules.student_management.models import SAMUser
+from app.modules.student_management.models import EQUser
 # from .software import Software
 
 class Notification(BaseModel):
-    user = models.ForeignKey(SAMUser, on_delete=models.CASCADE, related_name='notifications')
+    user = models.ForeignKey(EQUser, on_delete=models.CASCADE, related_name='notifications')
     title = models.CharField(max_length=255)
     message = models.TextField()
     category = models.CharField(max_length=100, null=True, blank=True)  # eg contract, software, supplier

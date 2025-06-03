@@ -1,10 +1,11 @@
 from django.db import models
+from app.modules.general_module.models.base_model import BaseModel
 from .student import Student
-from .course import Course
-from .course_batch import CourseBatch
+from app.modules.course_management.models.course import Course
+from app.modules.course_management.models.course_batch import CourseBatch
 
-class StudentCourse(models.Model):
-    enrollment_id = models.AutoField(primary_key=True)
+class StudentCourse(BaseModel):
+    # enrollment_id = models.AutoField(primary_key=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     batch = models.ForeignKey(CourseBatch, on_delete=models.CASCADE)

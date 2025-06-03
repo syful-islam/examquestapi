@@ -6,8 +6,8 @@ from app.modules.utils.email_utility import EmailService
 from app.modules.utils.otp_utility import OTPService
 from ..serializers.otp import OTPSerializer, OTPValidateSerializer
 from django.utils import timezone
-from app.modules.student_management.models import SAMUser
-from app.modules.access_control.serializers.sam_user import SAMUserSerializer
+from app.models import EQUser
+from app.modules.access_control.serializers.eq_user import EQUserSerializer
 
 class SendOTPView(APIView):
     authentication_classes = []
@@ -19,8 +19,8 @@ class SendOTPView(APIView):
             email = serializer.validated_data['email']            
             
             try:
-                user = SAMUser.objects.get(email=email)                
-            except SAMUser().DoesNotExist:
+                user = EQUser.objects.get(email=email)                
+            except EQUser().DoesNotExist:
                 return  Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
     
             otp_service = OTPService()
@@ -44,8 +44,8 @@ class ValidateOTPView(APIView):
             email = serializer.validated_data['email']
             otp = serializer.validated_data['otp']
             try:
-                user = SAMUser.objects.get(email=email)                
-            except SAMUser().DoesNotExist:
+                user = EQUser.objects.get(email=email)                
+            except EQUser().DoesNotExist:
                 return  Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
             
             otp_service = OTPService()
@@ -55,7 +55,7 @@ class ValidateOTPView(APIView):
                     user.save()
                 
                 # return Response({"message": "OTP validated successfully"}, status=status.HTTP_200_OK)
-                return Response(SAMUserSerializer(user).data, status=status.HTTP_200_OK)
+                return Response(EQUserSerializer(user).data, status=status.HTTP_200_OK)
             return Response({"error": "Invalid or expired OTP"}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

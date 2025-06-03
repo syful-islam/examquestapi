@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from ..models.notification import Notification
-from app.modules.access_control.serializers.sam_user import SAMUserSerializer
+from app.modules.access_control.serializers.eq_user import EQUserSerializer
 from app.modules.general_module.serializers.base_serializer import BaseModelSerializer
 
 class NotificationSerializer(BaseModelSerializer,serializers.ModelSerializer):
@@ -12,7 +12,7 @@ class NotificationSerializer(BaseModelSerializer,serializers.ModelSerializer):
         read_only_fields = ['created_at', 'created_by', 'updated_at', 'updated_by'] #'user',
 
 class NotificationNestedSerializer(BaseModelSerializer,serializers.ModelSerializer):
-    user = SAMUserSerializer()
+    user = EQUserSerializer()
     class Meta:
         model = Notification
         fields = '__all__'

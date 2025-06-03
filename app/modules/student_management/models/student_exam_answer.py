@@ -1,9 +1,10 @@
 from django.db import models
+from app.modules.general_module.models.base_model import BaseModel
 from .student import Student
-from .exam import Exam
-from .question import Question
+from app.modules.exam_management.models.exam import Exam
+from app.modules.exam_management.models.question import Question
 
-class StudentExamAnswer(models.Model):
+class StudentExamAnswer(BaseModel):
     # student = models.ForeignKey(Student, on_delete=models.CASCADE)
     # exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     # question = models.ForeignKey(Question, on_delete=models.CASCADE)

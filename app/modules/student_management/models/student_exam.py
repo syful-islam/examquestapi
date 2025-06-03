@@ -1,9 +1,10 @@
 from django.db import models
+from app.modules.general_module.models.base_model import BaseModel
 from django.utils import timezone
 from .student import Student
-from .exam import Exam
+from app.modules.exam_management.models.exam import Exam
 
-class StudentExam(models.Model):
+class StudentExam(BaseModel):
     # student = models.ForeignKey(Student, on_delete=models.CASCADE)
     # exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     # exam_start_date_time = models.DateTimeField()

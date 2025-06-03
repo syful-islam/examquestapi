@@ -42,7 +42,7 @@ class LovView(APIView):
             "sub_title_field": "software_name__software_name",  # Assuming software is a ForeignKey
         },
         "users": {
-            "model": "SAMUser",
+            "model": "EQUser",
             "id_field": "id",
             "title_field": "full_name",
             "sub_title_field": "",
