@@ -1,0 +1,41 @@
+{% extends 'email/base.html' %} {% block content %}
+<div style="text-align: center">
+  <h2 style="font-weight: bold">{{ email_title }}</h2>
+
+  <h3 style="margin-top: 40px">Hello {{ user_name }},</h3>
+  <p>You have the following contracts nearing expiry or already expired:</p>
+
+  <table style="margin: 20px auto; border-collapse: collapse; width: 95%">
+    <thead>
+      <tr style="background-color: #f2f2f2">
+        <th style="border: 1px solid #ccc; padding: 8px">Category</th>
+        <th style="border: 1px solid #ccc; padding: 8px">Title</th>
+        <th style="border: 1px solid #ccc; padding: 8px">Message</th>
+        <th style="border: 1px solid #ccc; padding: 8px">Expiry Date</th>
+        <th style="border: 1px solid #ccc; padding: 8px">Visit</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for notification in notifications %}
+      <tr>
+        <td style="border: 1px solid #ccc; padding: 8px">
+          {{ notification.category }}
+        </td>
+        <td style="border: 1px solid #ccc; padding: 8px">
+          {{ notification.title }}
+        </td>
+        <td style="border: 1px solid #ccc; padding: 8px">
+          {{ notification.message }}
+        </td>
+        <td style="border: 1px solid #ccc; padding: 8px">
+          {{ notification.expiry_date }}
+        </td>
+        <td style="border: 1px solid #ccc; padding: 8px">
+          <a href="{{ base_url }}{{ notification.target_url }}">View</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

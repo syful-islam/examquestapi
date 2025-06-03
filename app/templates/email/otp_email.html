@@ -1,0 +1,9 @@
+{% extends 'email/base.html' %} {% block content %}
+<h3>Hello {{ user_name }},</h3>
+<p>Your One-Time Password (OTP) is:</p>
+<h2 style="color: #007bff">{{ otp }}</h2>
+<p>
+  This OTP is valid for {{ validity_minutes }} minutes. Please use it to
+  complete your verification.
+</p>
+{% endblock %}

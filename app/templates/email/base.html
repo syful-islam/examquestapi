@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        background-color: #f8f8f8;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #000;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        text-align: center;
+      }
+      .header {
+        margin-bottom: 30px;
+      }
+      .logo img {
+        max-height: 80px;
+        margin-bottom: 10px;
+      }
+      .company-name {
+        font-size: 20px;
+        font-weight: bold;
+        color: #2e2e90;
+        letter-spacing: 1px;
+      }
+      .tagline {
+        color: #666;
+        font-size: 13px;
+        letter-spacing: 1px;
+      }
+      .footer {
+        font-size: 12px;
+        color: #666;
+        margin-top: 40px;
+        text-align: center;
+      }
+      .btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 24px;
+        background: #28c76f;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .btn a {
+        color: white;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        {% if base_url %}
+        <div class="logo">
+          <img src="{{ base_url }}/assets/images/logo.png" alt="Logo" />
+        </div>
+        {% endif %}
+        <div class="company-name">
+          {{ company_name|default:"Your Company" }}
+        </div>
+        {% if company_tagline %}
+        <div class="tagline">{{ company_tagline }}</div>
+        {% endif %}
+      </div>
+
+      {% block content %}{% endblock %}
+      <div class="btn"><a href="{{ base_url }}">Portal</a></div>
+      <div class="footer">
+        <p>This is an automated email. Please do not reply.</p>
+      </div>
+    </div>
+  </body>
+</html>
