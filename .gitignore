@@ -1,0 +1,13 @@
+# .gitignore
+.env
+
+# Ignore Python bytecode
+__pycache__/
+*.py[cod]
+
+# Ignore logs
+*.log
+logs/
+staticfiles/
+documents/
+#media/
