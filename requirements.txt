@@ -1,0 +1,22 @@
+# Django and Django REST Framework
+Django>=4.2,<5.0
+djangorestframework>=3.14.0
+
+# OAuth 2.0 Authentication
+django-oauth-toolkit>=2.3.0
+
+# CORS Support
+django-cors-headers>=4.3.1
+
+# PostgreSQL Database Adapter (if using PostgreSQL)
+psycopg2-binary>=2.9.9
+
+# Gunicorn (for production WSGI server)
+gunicorn>=21.2.0
+
+# Environment Variables Management
+python-dotenv>=1.0.1
+
+drf-yasg>=1.21.5
+python-dateutil>=2.8.2
+python-decouple==3.8
