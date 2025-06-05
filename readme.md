@@ -31,12 +31,12 @@ git push origin main
 
 git stash
 git pull origin main
-sudo systemctl restart samapi
+sudo systemctl restart eqapi
 
 git stash
 git pull origin main
 python3 manage.py migrate
-sudo systemctl restart samapi
+sudo systemctl restart eqapi
 sudo rm logs/\*
 
 ## Command to pull to production from github
@@ -59,10 +59,10 @@ qazwsx!@#
 
 sudo -u postgres psql
 
-\c samdb;
+\c examquestdb;
 
-DROP DATABASE samdb;
-CREATE DATABASE samdb;
+DROP DATABASE examquestdb;
+CREATE DATABASE examquestdb;
 
 git stash
 git pull origin main
@@ -72,31 +72,31 @@ python3 manage.py migrate
 sudo rm -r staticfiles/
 python3 manage.py collectstatic
 
-sudo systemctl restart samapi
+sudo systemctl restart eqapi
 
 # restore database from backup
 
-sudo -u postgres pg_restore -d samdb -Fc --verbose /home/ubuntu/samapi/backups/samdb.dump
+sudo -u postgres pg_restore -d examquestdb -Fc --verbose /home/ubuntu/examquestapi/backups/examquestdb.dump
 
 # create user and grant permission
 
-CREATE USER samdbuser WITH PASSWORD 'sam12345';
-ALTER DATABASE samdb OWNER TO samdbuser;
+CREATE USER examquestdbuser WITH PASSWORD 'examquest12345';
+ALTER DATABASE examquestdb OWNER TO examquestdbuser;
 
-GRANT ALL PRIVILEGES ON DATABASE samdb TO samdbuser;
+GRANT ALL PRIVILEGES ON DATABASE examquestdb TO examquestdbuser;
 
-GRANT CREATE ON SCHEMA public TO samdbuser;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO samdbuser;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO samdbuser;
+GRANT CREATE ON SCHEMA public TO examquestdbuser;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO examquestdbuser;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO examquestdbuser;
 
 ALTER DEFAULT PRIVILEGES IN SCHEMA public
-GRANT ALL ON TABLES TO samdbuser;
+GRANT ALL ON TABLES TO examquestdbuser;
 
 ## to drop a table manually
 
-psql -U samdbuser -d samdb
+psql -U examquestdbuser -d examquestdb
 
-\c samdb;
+\c examquestdb;
 
 DROP TABLE app_auditlog CASCADE;
 
@@ -135,7 +135,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-user = User.objects.get(email="admin@procure-logic.com")
+user = User.objects.get(email="admin@autonoming.com")
 
 app = Application.objects.create(
 name="ProcureLogic", # The name of your app
